@@ -1,7 +1,6 @@
 package server;
 
 import interfaces.IMovieDesc;
-
 import java.math.BigInteger;
 import java.util.Objects;
 

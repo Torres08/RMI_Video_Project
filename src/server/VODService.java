@@ -29,6 +29,13 @@ public class VODService extends UnicastRemoteObject implements IVODService  {
         return new ArrayList<>(movies);
     }
 
+    /**
+     * Plays a Movie depends of his ISBN
+     * @param isbn
+     * @param clientBox
+     * @return streams the movie and return the Bill
+     * @throws NoSuchMovieException
+     */
     @Override
     public IBill playMovies(String isbn, IClientBox clientBox) throws NoSuchMovieException {
         Movie movie = movies.stream()

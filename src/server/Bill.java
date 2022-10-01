@@ -1,6 +1,5 @@
 package server;
 import interfaces.IBill;
-
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -14,19 +13,13 @@ public class Bill implements IBill {
         this.price = price;
     }
 
-
     @Override
-    public String getMovieName() {
-        return movieName;
-    }
+    public String getMovieName() {return movieName;}
 
     @Override
     public BigInteger getOutrageousPrice() {
         return price;
     }
-
-
-
 
     @Override
     public String toString(){
