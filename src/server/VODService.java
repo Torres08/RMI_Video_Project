@@ -9,13 +9,9 @@ import interfaces.IVODService;
 import java.nio.charset.StandardCharsets;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VODService extends UnicastRemoteObject implements IVODService  {
-
 
     private Set<Movie> movies;
 
@@ -38,6 +34,7 @@ public class VODService extends UnicastRemoteObject implements IVODService  {
      */
     @Override
     public IBill playMovies(String isbn, IClientBox clientBox) throws NoSuchMovieException {
+
         Movie movie = movies.stream()
                 .filter(m -> m.getIsbn().equals(isbn))
                 .findFirst()

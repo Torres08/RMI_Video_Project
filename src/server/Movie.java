@@ -54,7 +54,7 @@ public class Movie implements IMovieDesc {
     }
 
     public String toString(){
-        return "Name: " + name + "\nISBN: " + isbn + "\nPrice: " + price + "\nSynopsis: " + synopsis + "\n";
+        return "\nName: " + name + "\nISBN: " + isbn + "\nPrice: " + price + "\nSynopsis: " + synopsis + "\n";
     }
 
 }

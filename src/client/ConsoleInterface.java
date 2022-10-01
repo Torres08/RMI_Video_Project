@@ -113,10 +113,10 @@ public class ConsoleInterface {
         while (true){
             System.out.println("Please enter the ISBN of the movie you want to watch: ");
             String isbn = in.nextLine();
-
             try{
+
                 IBill bill = service.playMovies(isbn,clientBox);
-                System.out.println("Bill to be paid: " + bill.toString());
+                System.out.println("\nBill to be paid: " + bill.toString());
                 return bill;
             }catch(NoSuchMovieException e){
                System.out.println(e.getMessage());
