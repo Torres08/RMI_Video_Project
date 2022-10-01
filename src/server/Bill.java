@@ -1,33 +1,36 @@
 package server;
-
 import interfaces.IBill;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 public class Bill implements IBill {
 
-    private String movieName;
-    private  BigInteger price;
+    private final String movieName;
+    private final BigInteger price;
 
     public Bill (String movieName, BigInteger price){
         this.movieName = movieName;
         this.price = price;
     }
 
+
     @Override
     public String getMovieName() {
-        return null;
+        return movieName;
     }
 
     @Override
     public BigInteger getOutrageousPrice() {
-        return null;
+        return price;
     }
+
+
 
 
     @Override
     public String toString(){
-        return "Bill: "
+        return ""
                 + "\n * Movie Name -> " + movieName
                 + "\n * Price -> " + price.toString() +"\n";
     }

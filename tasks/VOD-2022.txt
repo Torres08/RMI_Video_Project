@@ -1,0 +1,69 @@
+The goal is to program in RMI a client-server application that simulates an online platform that delivers Videos On Demand (video=film).
+
+The client should to be able to signin  (create an account) and login (connect to an account) on the server.
+
+Once the server is launched, you can't restart it for your tests, otherwise clients' credentials would be lost ! BONUS points will be given if you save credentials in a file (server-side) and read that file whenever the server is launched, so you could stop and restart your server without losing data.
+
+The client connects to the VOD platform by submitting its credentials. If they are not recognized at the server side, an Exception is returned.
+Managing errors is not the purpose of this lab, but BONUS points will be offered if in the client code, you catch and manage connection exceptions (write a message in the client console and asks the user to re-enter the credentials, both for signin and login).
+If recognized by the server, a stub to the private part of the VOD platform is returned.
+
+With this stub, the client can request a list of available videos. We assume videos are all uniquely identified by a String (corresponding for instance
+to the ISBN number). The description of the video is an object of a class that contains a string representing the ISBN number (standardized : 13 digits separated by 5 '-' 
+characters), and a second string giving the synopsys of the film. The toString() method of this class prints these two strings on the client console. 
+
+On client slide, the user can select a video by its ISBN, and then trigger the streaming of that video by invoking a method on server side for which client provides 
+a stub of its "internet box" (for the server to stream back the video by blocks of bytes later on), and of course the ISBN identifying the video. As a return value, the client gets back a bill object including the price (in euros) that must be payed (you do not have to handle the payment, it is out of scope of this lab work)
+
+Then, the server will loop to send (using an RMI method call done on the client "internet box") the x consecutive blocks of bytes that the client video player will have to play. As we simply simulate a real VOD platform, of course, you do not have to send blocks of bytes that are pieces of a real video, nor do you have to really play these blocks by a video
+player on client side. This means that you also do not have to wonder in which order the client receives the blocks of bytes (even though in real life
+the client video player should make sure that the blocks it plays are played in sequence !) To "see" something, you will send bytes corresponding
+to ascii code, eg "abcdef" (first block) "ghijkl" (second block), etc, and on the client internet box (an RMI object), you will simply implement a 
+method named void stream([] bytes block) whose role is to invoke System.out.println(block).
+
+BONUS: there are clients for which the server (randomly) decides to freely provide the teaser (bande-annonce) additionally to the film description.
+This means that, in this case, the server sends a list of film descriptions that are not only containing the two strings (ISBN, and synopsis), 
+but that also contains one block of bytes which is the teaser.  On client-side you must have activated the dynamic class loading mechanism,
+in order to be able to transparently download a film description class that is a subclass of the basic film description class, but that has one
+additional field which is the teaser. The public method toString() is redefined in this sub class: when invoked by the client, it will not only 
+print the synopsis on the console, but it also will trigger the video player to read the teaser (in our case, simply prints also this 3rd field on
+the client-side standard output).
+
+You will find in a separate file the RMI interfaces and method signatures you must implement.
+
+-----------------------------------------------------------------------------------------------------------------
+
+El objetivo es programar en RMI una aplicación cliente-servidor que simule una plataforma online que ofrezca vídeos bajo demanda (vídeo=película).
+
+El cliente debe ser capaz de iniciar sesión (crear una cuenta) y conectarse (conectarse a una cuenta) en el servidor.
+
+¡Una vez lanzado el servidor, no se puede reiniciar para sus pruebas, de lo contrario las credenciales de los clientes se perderían ! Se darán puntos extra si guardas las credenciales en un archivo (del lado del servidor) y lees ese archivo cada vez que se lance el servidor, de modo que puedas parar y reiniciar tu servidor sin perder datos.
+
+El cliente se conecta a la plataforma VOD enviando sus credenciales. Si no son reconocidas en el lado del servidor, se devuelve una Excepción.
+La gestión de los errores no es el objetivo de este laboratorio, pero se ofrecerán puntos BONUS si en el código del cliente se capturan y gestionan las excepciones de conexión (se escribe un mensaje en la consola del cliente y se pide al usuario que vuelva a introducir las credenciales, tanto para el inicio de sesión como para el login).
+Si es reconocido por el servidor, se devuelve un stub a la parte privada de la plataforma VOD.
+
+Con este stub, el cliente puede solicitar una lista de vídeos disponibles. Suponemos que todos los vídeos están identificados de forma única por una cadena (correspondiente, por ejemplo, al número de ISBN).
+al número de ISBN). La descripción del vídeo es un objeto de una clase que contiene una cadena que representa el número de ISBN (estandarizado: 13 dígitos separados por 5 caracteres "-"), y una segunda cadena que indica el número de la plataforma. 
+), y una segunda cadena que da la sinopsis de la película. El método toString() de esta clase imprime estas dos cadenas en la consola del cliente. 
+
+En la consola del cliente, el usuario puede seleccionar un vídeo por su ISBN y, a continuación, activar la transmisión de ese vídeo invocando un método en el lado del servidor para el que el cliente proporciona 
+un stub de su "caja de internet" (para que el servidor retransmita el vídeo por bloques de bytes posteriormente), y por supuesto el ISBN que identifica el vídeo. Como valor de retorno, el cliente recibe un objeto factura que incluye el precio (en euros) que debe ser pagado (no hay que manejar el pago, está fuera del alcance de este trabajo de laboratorio)
+
+A continuación, el servidor hará un bucle para enviar (mediante una llamada a un método RMI realizada en la "caja de Internet" del cliente) los x bloques consecutivos de bytes que el reproductor de vídeo del cliente deberá reproducir. Como simplemente simulamos una plataforma real de VOD, por supuesto, no hay que enviar bloques de bytes que sean trozos de un vídeo real, ni hay que reproducir realmente estos bloques por un reproductor de vídeo
+en el lado del cliente. Esto significa que tampoco hay que preguntarse en qué orden recibe el cliente los bloques de bytes (aunque en la vida real
+el reproductor de vídeo del cliente debe asegurarse de que los bloques que reproduce se reproduzcan en secuencia). Para "ver" algo, se enviarán los bytes correspondientes
+al código ascii, por ejemplo "abcdef" (primer bloque) "ghijkl" (segundo bloque), etc, y en la caja de Internet del cliente (un objeto RMI), simplemente implementará un método 
+método llamado void stream([] bytes block) cuya función es invocar System.out.println(block).
+
+BONUS: hay clientes para los que el servidor (aleatoriamente) decide proporcionar libremente el teaser (bande-annonce) además de la descripción de la película.
+Esto significa que, en este caso, el servidor envía una lista de descripciones de películas que no sólo contiene las dos cadenas (ISBN, y sinopsis) 
+sino que también contiene un bloque de bytes que es el teaser.  En el lado del cliente debe haber activado el mecanismo de carga dinámica de clases
+para poder descargar de forma transparente una clase de descripción de la película que sea una subclase de la clase básica de descripción de la película, pero que tenga un
+campo adicional que es el teaser. El método público toString() se redefine en esta subclase: cuando es invocado por el cliente, no sólo 
+imprimirá la sinopsis en la consola, sino que también activará el reproductor de vídeo para leer el teaser (en nuestro caso, simplemente imprime también este tercer campo en
+la salida estándar del lado del cliente).
+
+Encontrarás en un archivo separado las interfaces RMI y las firmas de los métodos que debes implementar.
+
+Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator

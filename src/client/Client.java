@@ -3,7 +3,6 @@ package client;
 import interfaces.IClientBox;
 import interfaces.IConnection;
 import interfaces.IVODService;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -12,12 +11,12 @@ import java.rmi.registry.Registry;
 public class Client {
     public static void main(String[] args) throws RemoteException {
 
-        //System.out.println("Hola");
-
+        // Create registry, connection and a ClientBox
         Registry registry = LocateRegistry.getRegistry("localhost",2002 );
         IConnection connection;
         IClientBox clientBox = new ClientBox();
 
+        // Lookup for a connection
         try{
             connection = (IConnection) registry.lookup("Connection");
         }catch(NotBoundException e){
@@ -26,6 +25,7 @@ public class Client {
             return;
         }
 
+        // Create a ConsoleInterface and start it
         ConsoleInterface ui = new ConsoleInterface();
         IVODService vodService = ui.start(connection);
         while(true){

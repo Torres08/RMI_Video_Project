@@ -6,7 +6,6 @@ import interfaces.IBill;
 import interfaces.IClientBox;
 import interfaces.IConnection;
 import interfaces.IVODService;
-
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
@@ -14,6 +13,11 @@ public class ConsoleInterface {
 
     Scanner in = new Scanner(System.in);
 
+    /**
+     * Gives the user to start login or SignUp
+     * @param connection (to the server)
+     * @return login or SignUp to the next process
+     */
     public IVODService start(IConnection connection){
         System.out.println("Welcome to the VOD Client (＠＾◡＾)");
         System.out.print("Please login (l) or register (r):");
@@ -30,6 +34,12 @@ public class ConsoleInterface {
         }
     }
 
+
+    /**
+     *  Provides the user interaction to login for a user
+     * @param connection (to the server)
+     * @return login interaction
+     */
 
     public IVODService login(IConnection connection){
         System.out.println("Please enter your credentials (login)");
@@ -54,6 +64,11 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     *  Provides the user interaction to SignUp for a user
+     * @param connection (to the server)
+     * @return SignUp interaction
+     */
     public IVODService signUp(IConnection connection){
         System.out.println("Please enter your credentials (signUp)");
 
@@ -78,6 +93,12 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Provides all the user interaction to select and start a movie.
+     * @param service the servers service to display and select a movie
+     * @param clientBox the client box to stream the movie to
+     * @return the bill of the chosen movie.
+     */
 
     public IBill startMovie(IVODService service, IClientBox clientBox) throws RemoteException {
         System.out.println("The following movies are avaliable: ");
