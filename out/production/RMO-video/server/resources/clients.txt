@@ -1,0 +1,6 @@
+hans@poly.fr;test
+micheal@gmail.com;1234
+anna@bfh.ch;h3llo
+test;test
+hans;hans
+chorizo;chorizo
